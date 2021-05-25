@@ -1,0 +1,1 @@
+INSERT INTO departamentos (nome) VALUES ('Contábil');
