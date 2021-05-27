@@ -29,13 +29,17 @@
 					<thead>
 						<tr>
 							<th>#</th>
-							<th>Cargo</th>
+							<th>
+								<a class="" th:href="@{/cargos/listar(page=${pageCargo.pagina}, dir=desc)}" tabindex="-1"><span class="oi oi-arrow-bottom"></span></a>
+								Cargo
+								<a class="" th:href="@{/cargos/listar(page=${pageCargo.pagina}, dir=asc)}" tabindex="-1"><span class="oi oi-arrow-top"></span></a>
+							</th>
 							<th>Departamento</th>
 							<th>Ação</th>
 						</tr>
 					</thead>
 					<tbody>
-						<tr th:each="cargo : ${cargos}">
+						<tr th:each="cargo : ${pageCargo.registros}">
 							<td th:text="${cargo.id}">Id</td>
 							<td th:text="${cargo.nome}">Nome Cargo</td>
 							<td th:text="${cargo.departamento.nome}">Nome Departamento</td>
@@ -47,12 +51,30 @@
 									th:id="${#strings.concat('btn_cargos/excluir/', cargo.id)}"
 									type="button" class="btn btn-danger btn-sm" data-toggle="modal"
 									data-target="#myModal">
-									<span class="oi oi-circle-x" title="Excluir"
-										aria-hidden="true"></span>
+									<span class="oi oi-circle-x" title="Excluir" aria-hidden="true"></span>
 								</button></td>
 						</tr>
 					</tbody>
 				</table>
+				<nav aria-label="Page navigation example">
+					<ul class="pagination justify-content-center">
+					<li class="page-item">
+							<a class="page-link" th:href="@{/cargos/listar(page=${1}, dir=${pageCargo.direcao})}" tabindex="-1">Primeira</a>
+						</li>
+						<li th:class="${pageCargo.pagina == 1} ? 'page-item disabled' : 'page-item'">
+							<a class="page-link" th:href="@{/cargos/listar(page=${pageCargo.pagina -1}, dir=${pageCargo.direcao})}" tabindex="-1">Anterior</a>
+						</li>
+						<li class="page-item">
+							<span class="page-link" th:text="|${pageCargo.pagina} de ${pageCargo.totalDePaginas}|"></span>
+						</li>
+						<li th:class="${pageCargo.pagina == pageCargo.totalDePaginas} ? 'page-item disabled' : 'page-item'">
+							<a class="page-link" th:href="@{/cargos/listar(page=${pageCargo.pagina +1}, dir=${pageCargo.direcao})}">Próxima</a>
+						</li>
+						<li class="page-item">
+							<a class="page-link" th:href="@{/cargos/listar(page=${pageCargo.totalDePaginas}, dir=${pageCargo.direcao})}" tabindex="-1">Ultima</a>
+						</li>
+					</ul>
+				</nav>
 			</div>
 		</div>
 

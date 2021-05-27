@@ -3,6 +3,7 @@ package br.dev.diego.springmvc.service;
 import java.util.List;
 
 import br.dev.diego.springmvc.domain.Cargo;
+import br.dev.diego.springmvc.utils.Paginacao;
 
 public interface CargoService {
 	
@@ -17,5 +18,7 @@ public interface CargoService {
 	List<Cargo> buscarTodos();
 	
 	boolean cargoTemFuncionarios(Long id);
+	
+	public Paginacao<Cargo> buscaPaginada(int pagina, String direcao);
 
 }
