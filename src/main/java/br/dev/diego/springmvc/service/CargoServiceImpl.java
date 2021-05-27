@@ -34,13 +34,23 @@ public class CargoServiceImpl implements CargoService {
 	@Override
 	@Transactional(readOnly = true)
 	public Cargo buscarPorId(Long id) {
-		return cargoRepository.getOne(id);
+		return cargoRepository.findById(id).get();
 	}
 
 	@Override
 	@Transactional(readOnly = true)
 	public List<Cargo> buscarTodos() {
 		return cargoRepository.findAll();
+	}
+
+	@Override
+	@Transactional(readOnly = true)
+	public boolean cargoTemFuncionarios(Long id) {
+		Cargo cargo = cargoRepository.findById(id).get();
+		if (cargo.getFuncionarios().isEmpty()) {
+			return false;
+		}
+		return true;
 	}
 
 }

@@ -14,7 +14,7 @@ public class DepartamentoServiceImpl implements DepartamentoService {
 
 	@Autowired
 	private DepartamentoRepository departamentoRepository;
-	
+
 	@Override
 	@Transactional(readOnly = false) // False é padrão
 	public void salvar(Departamento departamento) {
@@ -36,13 +36,23 @@ public class DepartamentoServiceImpl implements DepartamentoService {
 	@Override
 	@Transactional(readOnly = true)
 	public Departamento buscarPorId(Long id) {
-		return departamentoRepository.getOne(id);
+		return departamentoRepository.findById(id).get();
 	}
 
 	@Override
 	@Transactional(readOnly = true)
 	public List<Departamento> buscarTodos() {
 		return departamentoRepository.findAll();
+	}
+
+	@Override
+	@Transactional(readOnly = true)
+	public boolean departamentoTemCargos(Long id) {
+		Departamento dep = departamentoRepository.findById(id).get();
+		if (dep.getCargos().isEmpty()) {
+			return false;
+		}
+		return true;
 	}
 
 }
